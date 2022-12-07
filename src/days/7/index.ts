@@ -1,7 +1,5 @@
-const world = "world";
+import { readFileSync } from "fs";
+import { InputHandler } from "./InputHandler";
 
-export function hello(who: string = world): string {
-  return `Hello ${who}! `;
-}
-
-console.log(hello(world));
+const input = readFileSync(process.argv[2], "utf8");
+new InputHandler().processInput(input);
