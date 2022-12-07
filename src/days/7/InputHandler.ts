@@ -11,7 +11,11 @@ export class InputHandler {
       if (type === "$") {
         this.handleCommand(rest);
       } else if (type === "dir") {
-        console.log("Got a dir");
+        const [name] = rest[0];
+        this.currentDirectory!.createChildDirectory(name);
+        console.log(
+          `Created child directory ${name} of ${this.currentDirectory?.name}`
+        );
       } else {
         console.log(`Got number ${type}`);
       }
@@ -34,8 +38,8 @@ export class InputHandler {
     } else if (name === "..") {
       this.currentDirectory = this.currentDirectory?.parent;
     } else {
-      this.currentDirectory = this.currentDirectory?.getOrCreateChild(name);
+      this.currentDirectory = this.currentDirectory?.getChild(name);
     }
-    console.log(`Changing to directory ${name}`);
+    console.log(`Changed to directory ${this.currentDirectory?.name}`);
   }
 }

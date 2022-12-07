@@ -6,17 +6,15 @@ export class Directory {
     public readonly parent: Directory | undefined
   ) {}
 
-  getOrCreateChild(name: string) {
-    let child = this.children.find((child) => child.name === name);
+  getChild(name: string): Directory | undefined {
+    return this.children.find((child) => child.name === name);
+  }
 
-    if (child != null) {
-      return child;
+  createChildDirectory(name: string): void {
+    if (this.children.some((child) => child.name === name)) {
+      return;
     }
-
-    child = new Directory(name, this);
-    this.children.push(child);
-
-    return child;
+    this.children.push(new Directory(name, this));
   }
 }
 
